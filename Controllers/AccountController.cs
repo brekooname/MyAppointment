@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyAppointment.Data;
 using MyAppointment.Models;
 using MyAppointment.Models.ViewModels;
+using MyAppointment.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,17 @@ namespace MyAppointment.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Register()
+        {
+            if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
+            {
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Doctor));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Patient));
+            }
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -45,6 +57,7 @@ namespace MyAppointment.Controllers
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, model.RoleName);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
