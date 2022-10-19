@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyAppointment.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,15 @@ namespace MyAppointment.Controllers
 {
     public class AppointmentController : Controller
     {
+        private readonly IAppointmentService _appointmentService;
+
+        public AppointmentController(IAppointmentService appointmentService)
+        {
+            _appointmentService = appointmentService;
+        }
         public IActionResult Index()
         {
+            _appointmentService.GetDoctorList();
             return View();
         }
     }
