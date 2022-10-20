@@ -37,7 +37,7 @@ namespace MyAppointment.Services
                     Description = model.Description,
                     StartDate = startDate,
                     EndDate = endDate,
-                    Duriation = model.Duriation,
+                    Duration = model.Duration,
                     DoctorId = model.DoctorId,
                     PatientId = model.PatientId,
                     IsDoctorApproved = false,
@@ -60,7 +60,7 @@ namespace MyAppointment.Services
                 StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
-                Duriation = c.Duriation,
+                Duration = c.Duration,
                 IsDoctorApproved = c.IsDoctorApproved
             }).ToList();
         }
@@ -74,7 +74,7 @@ namespace MyAppointment.Services
                 StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
-                Duriation = c.Duriation,
+                Duration = c.Duration,
                 IsDoctorApproved = c.IsDoctorApproved,
                 PatientId = c.PatientId,
                 DoctorId = c.DoctorId,
@@ -122,7 +122,7 @@ namespace MyAppointment.Services
                 StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
-                Duriation = c.Duriation,
+                Duration = c.Duration,
                 IsDoctorApproved = c.IsDoctorApproved
             }).ToList();
         }
