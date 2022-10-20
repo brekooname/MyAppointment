@@ -51,6 +51,28 @@ namespace MyAppointment.Services
 
         }
 
+        public async Task<int> ConfirmEvent(int id)
+        {
+            var appointment = _context.Appointments.FirstOrDefault(x => x.Id == id);
+            if (appointment != null)
+            {
+                appointment.IsDoctorApproved = true;
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            var appointment = _context.Appointments.FirstOrDefault(x => x.Id == id);
+            if (appointment != null)
+            {
+                _context.Appointments.Remove(appointment);
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
+        }
+
         public List<AppointmentVM> DoctorsEventsById(string doctorId)
         {
             return _context.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVM()
