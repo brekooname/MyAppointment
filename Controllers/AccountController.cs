@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyAppointment.Data;
 using MyAppointment.Models;
@@ -40,6 +41,9 @@ namespace MyAppointment.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByNameAsync(model.Email);
+                    HttpContext.Session.SetString("ssuserName", user.Name);
+                    //var userName = HttpContext.Session.GetString("ssuserName");
                     return RedirectToAction("Index", "Appointment");
                 }
                 ModelState.AddModelError("", "Invalid login attempt");
@@ -71,12 +75,16 @@ namespace MyAppointment.Controllers
                     Name = model.Name
                 };
 
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    if (!User.IsInRole(Helper.Admin))
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                    }
+                    return RedirectToAction("Index", "Appointment");
                 }
                 foreach (var error in result.Errors)
                 {
