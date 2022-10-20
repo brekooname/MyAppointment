@@ -80,6 +80,14 @@ function onShowModal(obj, isEventDetail) {
         $("#doctorId").val(obj.doctorId);
         $("#patientId").val(obj.patientId);
         $("#id").val(obj.id);
+        $("#lblPatientName").html(obj.patientName);
+        $("#lblDoctorName").html(obj.doctorName);
+        if (obj.isDoctorApproved) {
+            $("#lblStatus").html('Approved');
+        }
+        else {
+            $("#lblStatus").html('Pending');
+        }
 
     }
     else {
@@ -90,7 +98,14 @@ function onShowModal(obj, isEventDetail) {
 }
 
 function onCloseModal() {
+    $("#apointmentForm")[0].reset();
+    $("#id").val(0);
+    $("#title").val('');
+    $("#description").val('');
+    $("#appointmentDate").val('');
+    $("#duration").val('');
 
+    $("#patientId").val('');
     $("#appointmentInput").modal("hide");
 }
 
@@ -113,6 +128,7 @@ function onSubmitForm() {
             contentType: 'application/json',
             success: function (response) {
                 if (response.status === 1 || response.status === 2) {
+                    calendar.refetchEvents();
                     $.notify(response.message, "success");
                     onCloseModal();
                 }

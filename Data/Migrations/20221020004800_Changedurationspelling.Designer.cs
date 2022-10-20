@@ -9,8 +9,8 @@ using MyAppointment.Data;
 namespace MyAppointment.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221019022631_AddModelVM")]
-    partial class AddModelVM
+    [Migration("20221020004800_Changedurationspelling")]
+    partial class Changedurationspelling
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,7 +228,7 @@ namespace MyAppointment.Data.Migrations
                     b.Property<string>("DoctorId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Duriation")
+                    b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("EndDate")

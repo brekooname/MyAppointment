@@ -226,7 +226,7 @@ namespace MyAppointment.Data.Migrations
                     b.Property<string>("DoctorId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Duriation")
+                    b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("EndDate")
