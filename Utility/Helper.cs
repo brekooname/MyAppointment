@@ -9,8 +9,8 @@ namespace MyAppointment.Utility
     public static class Helper
     {
         public static string Admin = "Admin";
-        public static string Patient = "Patient";
-        public static string Doctor = "Doctor";
+        public static string Customer = "Customer";
+        public static string Technician = "Technician";
         public static string appointmentAdded = "Appointment added successfully.";
         public static string appointmentUpdated = "Appointment updated successfully.";
         public static string appointmentDeleted = "Appointment deleted successfully.";
@@ -37,8 +37,8 @@ namespace MyAppointment.Utility
             {
                 return new List<SelectListItem>
                 {
-                    new SelectListItem{Value=Helper.Patient,Text=Helper.Patient},
-                    new SelectListItem{Value=Helper.Doctor,Text=Helper.Doctor}
+                    new SelectListItem{Value=Helper.Customer,Text=Helper.Customer},
+                    new SelectListItem{Value=Helper.Technician,Text=Helper.Technician}
                 };
             }
         }

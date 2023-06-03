@@ -56,8 +56,8 @@ namespace MyAppointment.Controllers
             if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
             {
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
-                await _roleManager.CreateAsync(new IdentityRole(Helper.Doctor));
-                await _roleManager.CreateAsync(new IdentityRole(Helper.Patient));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Technician));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Customer));
             }
             return View();
         }

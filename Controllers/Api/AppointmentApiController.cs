@@ -57,24 +57,24 @@ namespace MyAppointment.Controllers.Api
 
         [HttpGet]
         [Route("GetCalendarData")]
-        public IActionResult GetCalendarData(string doctorId)
+        public IActionResult GetCalendarData(string technicianId)
         {
             CommonResponse<List<AppointmentVM>> commonResponse = new CommonResponse<List<AppointmentVM>>();
             try
             {
-                if (role == Helper.Patient)
+                if (role == Helper.Customer)
                 {
-                    commonResponse.dataenum = _appointmentService.PatientsEventsById(loginUserId);
+                    commonResponse.dataenum = _appointmentService.CustomersEventsById(loginUserId);
                     commonResponse.status = Helper.success_code;
                 }
-                else if (role == Helper.Doctor)
+                else if (role == Helper.Technician)
                 {
-                    commonResponse.dataenum = _appointmentService.DoctorsEventsById(loginUserId);
+                    commonResponse.dataenum = _appointmentService.TechniciansEventsById(loginUserId);
                     commonResponse.status = Helper.success_code;
                 }
                 else
                 {
-                    commonResponse.dataenum = _appointmentService.DoctorsEventsById(doctorId);
+                    commonResponse.dataenum = _appointmentService.TechniciansEventsById(technicianId);
                     commonResponse.status = Helper.success_code;
                 }
             }

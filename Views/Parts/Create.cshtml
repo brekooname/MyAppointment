@@ -1,0 +1,94 @@
+﻿@model MyAppointment.Models.ViewModels.PartViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h2>New Part</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form method="post" id="partform">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <input class="form-control" asp-for="CustomerName" />
+                        </div>
+   
+                        <div class="form-group">
+                            <label>Part Number</label>
+                            <input class="form-control" asp-for="PartNumber">
+                        </div>
+                        <div class="form-group">
+                            <label>Part Description</label>
+                            <input class="form-control" asp-for="PartDescription" />
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                 @Html.CheckBoxFor(m => m.StatusOfWorkOrder) Is completed ?
+                            </label>
+                        </div>
+                        @Html.AntiForgeryToken()
+                        <input class="btn btn-primary" type="submit" value="Submit" />
+                        <a asp-controller="Parts" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+@*
+@section scripts {
+    <script>
+        const uri = '/api/Parts';
+        let submitForm = document.querySelector("#partform");
+        submitForm.addEventListener("submit", submitData);
+
+        function submitData(e) {
+            e.preventDefault();
+            //Get Values
+
+            let name, partNumber, partDescription;
+            name = document.getElementById("CustomerName").value;
+            partNumber = document.getElementById("PartNumber").value;
+            partDescription = document.getElementById("PartDescription").value;
+
+            if (name == "") {
+                alert("Please enter part name !!!");
+                return false;
+            };
+            if (partNumber == "") {
+                alert("Please enter part number !!!");
+                return false;
+            };
+            if (partDescription == "") {
+                alert("Please enter part description !!!");
+                return false;
+            };
+                  
+            fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: customerName, partNumber: partNumber, partDescription: partDescription })
+            }).then((res) => res.json())
+                .then((data) => {
+                    submitForm.reset();
+                    alert("Your Part is been Added it ");
+                })
+                .catch((error) => {
+                    console.error('Error', error);
+                })
+        }
+    </script>
+}
+
+*@

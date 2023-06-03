@@ -29,7 +29,7 @@ function InitializeCalendar() {
                 eventDisplay: 'block',
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: routeURL + '/api/Appointment/GetCalendarData?doctorId=' + $("#doctorId").val(),
+                        url: routeURL + '/api/Appointment/GetCalendarData?technicianId=' + $("#technicianId").val(),
                         type: 'GET',
                         dataType: 'JSON',
                         success: function (response) {
@@ -41,7 +41,7 @@ function InitializeCalendar() {
                                         description: data.description,
                                         start: data.startDate,
                                         end: data.endDate,
-                                        backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
+                                        backgroundColor: data.isTechnicianApproved ? "#28a745" : "#dc3545",
                                         borderColor: "#162466",
                                         textColor: "white",
                                         id: data.id
@@ -77,12 +77,12 @@ function onShowModal(obj, isEventDetail) {
         $("#description").val(obj.description);
         $("#appointmentDate").val(obj.startDate);
         $("#duration").val(obj.duration);
-        $("#doctorId").val(obj.doctorId);
-        $("#patientId").val(obj.patientId);
+        $("#technicianId").val(obj.doctorId);
+        $("#customerId").val(obj.patientId);
         $("#id").val(obj.id);
-        $("#lblPatientName").html(obj.patientName);
-        $("#lblDoctorName").html(obj.doctorName);
-        if (obj.isDoctorApproved) {
+        $("#lblCustomerName").html(obj.customerName);
+        $("#lblTechnicianName").html(obj.technicianName);
+        if (obj.isTechnicianApproved) {
             $("#lblStatus").html('Approved');
             $("#btnConfirm").addClass("d-none");
             $("#btnSubmit").addClass("d-none");
@@ -121,8 +121,8 @@ function onSubmitForm() {
             Description: $("#description").val(),
             StartDate: $("#appointmentDate").val(),
             Duration: $("#duration").val(),
-            DoctorId: $("#doctorId").val(),
-            PatientId: $("#patientId").val(),
+            TechnicianId: $("#technicianId").val(),
+            CustomerId: $("#customerId").val(),
         };
 
         $.ajax({
@@ -187,7 +187,7 @@ function getEventDetailsByEventId(info) {
     });
 }
 
-function onDoctorChange() {
+function onTechnicianChange() {
     calendar.refetchEvents();
 }
 

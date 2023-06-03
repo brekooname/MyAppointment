@@ -25,16 +25,16 @@
                     @if (User.IsInRole(MyAppointment.Utility.Helper.Admin))
                     {
                         <div class="form-group">
-                            <label for="title">Select Patient</label>
-                            <select id="patientId" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))" class="form-control"></select>
+                            <label for="title">Select Customer</label>
+                            <select id="customerId" asp-items="@(new SelectList(ViewBag.CustomerList, "Id", "Name"))" class="form-control"></select>
                         </div>
                     }
                     else
                     {
-                        @if (User.IsInRole(MyAppointment.Utility.Helper.Doctor))
+                        @if (User.IsInRole(MyAppointment.Utility.Helper.Technician))
                         {
                             <div class="form-group">
-                                <label for="lblPatientName">Patient Name</label>
+                                <label for="lblCustomerName">Customer Name</label>
                                 <label class="form-control" disabled id="lblPatientName" />
                             </div>
                             <div class="form-group">
@@ -42,11 +42,11 @@
                                 <label class="form-control" disabled id="lblStatus" />
                             </div>
                         }
-                        @if (User.IsInRole(MyAppointment.Utility.Helper.Patient))
+                        @if (User.IsInRole(MyAppointment.Utility.Helper.Customer))
                         {
                             <div class="form-group">
-                                <label for="lblDoctorName">Doctor Name</label>
-                                <label class="form-control" disabled id="lblDoctorName" />
+                                <label for="lblTechnicianName">Technician Name</label>
+                                <label class="form-control" disabled id="lblTechnicianName" />
                             </div>
                             <div class="form-group">
                                 <label for="lblStatus">Status</label>
@@ -74,14 +74,11 @@
                         <button type="button" id="btnDelete" class="btn btn-danger" onclick="onDeleteAppointment();">Delete</button>
                     }
 
-                    @if (User.IsInRole(MyAppointment.Utility.Helper.Doctor))
+                    @if (User.IsInRole(MyAppointment.Utility.Helper.Technician))
                     {
                         <button type="button" id="btnConfirm" class="btn btn-success" onclick="onConfirm();">Confirm</button>
                         <button type="button" id="btnDelete" class="btn btn-danger" onclick="onDeleteAppointment();">Delete</button>
                     }
-
-
-
                 </div>
             </form>
         </div>

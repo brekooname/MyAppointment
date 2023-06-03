@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyAppointment.Data.Migrations
+namespace MyAppointment.Migrations
 {
-    public partial class Changedurationspelling : Migration
+    public partial class addmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,9 +18,9 @@ namespace MyAppointment.Data.Migrations
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Duration = table.Column<int>(type: "INTEGER", nullable: false),
-                    DoctorId = table.Column<string>(type: "TEXT", nullable: true),
-                    PatientId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsDoctorApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TechnicianId = table.Column<string>(type: "TEXT", nullable: true),
+                    CustomerId = table.Column<string>(type: "TEXT", nullable: true),
+                    IsTechnicianApproved = table.Column<bool>(type: "INTEGER", nullable: false),
                     AdminId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

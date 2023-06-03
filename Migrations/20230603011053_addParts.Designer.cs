@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyAppointment.Data;
 
-namespace MyAppointment.Data.Migrations
+namespace MyAppointment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221020004800_Changedurationspelling")]
-    partial class Changedurationspelling
+    [Migration("20230603011053_addParts")]
+    partial class addParts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,10 +222,10 @@ namespace MyAppointment.Data.Migrations
                     b.Property<string>("AdminId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("CustomerId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DoctorId")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Duration")
@@ -234,13 +234,13 @@ namespace MyAppointment.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsDoctorApproved")
+                    b.Property<bool>("IsTechnicianApproved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PatientId")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<string>("TechnicianId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -249,6 +249,35 @@ namespace MyAppointment.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("MyAppointment.Models.Part", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PartDescription")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PartNumber")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("StatusOfWorkOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

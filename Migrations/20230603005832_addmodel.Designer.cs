@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyAppointment.Data;
 
-namespace MyAppointment.Data.Migrations
+namespace MyAppointment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230603005832_addmodel")]
+    partial class addmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,10 +222,10 @@ namespace MyAppointment.Data.Migrations
                     b.Property<string>("AdminId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("CustomerId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DoctorId")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Duration")
@@ -232,13 +234,13 @@ namespace MyAppointment.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsDoctorApproved")
+                    b.Property<bool>("IsTechnicianApproved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PatientId")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<string>("TechnicianId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")

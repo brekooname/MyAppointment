@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyAppointment.Models.ViewModels
 {
-    public class DoctorVM
+    public class TechnicianVM
     {
         public string Id { get; set; }
 

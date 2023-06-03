@@ -31,9 +31,9 @@ namespace MyAppointment.Services
                 appointment.StartDate = startDate;
                 appointment.EndDate = endDate;
                 appointment.Duration = model.Duration;
-                appointment.DoctorId = model.DoctorId;
-                appointment.PatientId = model.PatientId;
-                appointment.IsDoctorApproved = false;
+                appointment.TechnicianId = model.TechnicianId;
+                appointment.CustomerId = model.CustomerId;
+                appointment.IsTechnicianApproved = false;
                 appointment.AdminId = model.AdminId;
                 await _context.SaveChangesAsync();
                 //update
@@ -49,9 +49,9 @@ namespace MyAppointment.Services
                     StartDate = startDate,
                     EndDate = endDate,
                     Duration = model.Duration,
-                    DoctorId = model.DoctorId,
-                    PatientId = model.PatientId,
-                    IsDoctorApproved = false,
+                    TechnicianId = model.TechnicianId,
+                    CustomerId = model.CustomerId,
+                    IsTechnicianApproved = false,
                     AdminId = model.AdminId
                 };
 
@@ -67,7 +67,7 @@ namespace MyAppointment.Services
             var appointment = _context.Appointments.FirstOrDefault(x => x.Id == id);
             if (appointment != null)
             {
-                appointment.IsDoctorApproved = true;
+                appointment.IsTechnicianApproved = true;
                 return await _context.SaveChangesAsync();
             }
             return 0;
@@ -84,9 +84,9 @@ namespace MyAppointment.Services
             return 0;
         }
 
-        public List<AppointmentVM> DoctorsEventsById(string doctorId)
+        public List<AppointmentVM> TechniciansEventsById(string technicianId)
         {
-            return _context.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVM()
+            return _context.Appointments.Where(x => x.TechnicianId == technicianId).ToList().Select(c => new AppointmentVM()
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -94,7 +94,7 @@ namespace MyAppointment.Services
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
-                IsDoctorApproved = c.IsDoctorApproved
+                IsTechnicianApproved = c.IsTechnicianApproved
             }).ToList();
         }
 
@@ -108,47 +108,47 @@ namespace MyAppointment.Services
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
-                IsDoctorApproved = c.IsDoctorApproved,
-                PatientId = c.PatientId,
-                DoctorId = c.DoctorId,
-                PatientName = _context.Users.Where(x => x.Id == c.PatientId).Select(x => x.Name).FirstOrDefault(),
-                DoctorName = _context.Users.Where(x => x.Id == c.DoctorId).Select(x => x.Name).FirstOrDefault(),
+                IsTechnicianApproved = c.IsTechnicianApproved,
+                CustomerId = c.CustomerId,
+                TechnicianId = c.TechnicianId,
+                CustomerName = _context.Users.Where(x => x.Id == c.CustomerId).Select(x => x.Name).FirstOrDefault(),
+                TechnicianName = _context.Users.Where(x => x.Id == c.TechnicianId).Select(x => x.Name).FirstOrDefault(),
             }).SingleOrDefault();
         }
 
-        public List<DoctorVM> GetDoctorList()
+        public List<TechnicianVM> GetTechnicianList()
         {
-            var doctors = (from user in _context.Users
+            var technicians = (from user in _context.Users
                            join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
-                           join roles in _context.Roles.Where(x => x.Name == Helper.Doctor) on userRoles.RoleId equals roles.Id
-                           select new DoctorVM
+                           join roles in _context.Roles.Where(x => x.Name == Helper.Technician) on userRoles.RoleId equals roles.Id
+                           select new TechnicianVM
                            {
                                Id = user.Id,
                                Name = user.Name
                            }
                           ).ToList();
 
-            return doctors;
+            return technicians;
         }
 
-        public List<PatientVM> GetPatientList()
+        public List<CustomerVm> GetCustomerList()
         {
-            var patients = (from user in _context.Users
+            var customers = (from user in _context.Users
                             join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
-                            join roles in _context.Roles.Where(x => x.Name == Helper.Patient) on userRoles.RoleId equals roles.Id
-                            select new PatientVM
+                            join roles in _context.Roles.Where(x => x.Name == Helper.Customer) on userRoles.RoleId equals roles.Id
+                            select new CustomerVm
                             {
                                 Id = user.Id,
                                 Name = user.Name
                             }
                          ).ToList();
 
-            return patients;
+            return customers;
         }
 
-        public List<AppointmentVM> PatientsEventsById(string patientId)
+        public List<AppointmentVM> CustomersEventsById(string customerId)
         {
-            return _context.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new AppointmentVM()
+            return _context.Appointments.Where(x => x.CustomerId == customerId).ToList().Select(c => new AppointmentVM()
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -156,7 +156,7 @@ namespace MyAppointment.Services
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
-                IsDoctorApproved = c.IsDoctorApproved
+                IsTechnicianApproved = c.IsTechnicianApproved
             }).ToList();
         }
     }
