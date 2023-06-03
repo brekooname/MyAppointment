@@ -9,7 +9,7 @@ namespace MyAppointment.Services
     public interface IAppointmentService
     {
         public List<TechnicianVM> GetTechnicianList();
-        public List<CustomerVm> GetCustomerList();
+        public List<CustomerVM> GetCustomerList();
         public Task<int> AddUpdate(AppointmentVM model);
 
         public List<AppointmentVM> TechniciansEventsById(string technicianId);

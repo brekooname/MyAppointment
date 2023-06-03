@@ -22,6 +22,8 @@ namespace MyAppointment.Services
         {
             var startDate = DateTime.Parse(model.StartDate);
             var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
+            var customer = _context.Users.FirstOrDefault(u => u.Id == model.CustomerId);
+            var technician = _context.Users.FirstOrDefault(u => u.Id == model.TechnicianId);
 
             if (model != null && model.Id > 0)
             {
@@ -131,12 +133,12 @@ namespace MyAppointment.Services
             return technicians;
         }
 
-        public List<CustomerVm> GetCustomerList()
+        public List<CustomerVM> GetCustomerList()
         {
             var customers = (from user in _context.Users
                             join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
                             join roles in _context.Roles.Where(x => x.Name == Helper.Customer) on userRoles.RoleId equals roles.Id
-                            select new CustomerVm
+                            select new CustomerVM
                             {
                                 Id = user.Id,
                                 Name = user.Name

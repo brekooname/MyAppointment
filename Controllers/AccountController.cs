@@ -53,6 +53,13 @@ namespace MyAppointment.Controllers
 
         public async Task<IActionResult> Register()
         {
+
+            return View();
+        }
+
+         /*
+        public async Task<IActionResult> Register()
+        {
             if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
             {
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
@@ -60,7 +67,7 @@ namespace MyAppointment.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Customer));
             }
             return View();
-        }
+        }*/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +81,6 @@ namespace MyAppointment.Controllers
                     Email = model.Email,
                     Name = model.Name
                 };
-
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

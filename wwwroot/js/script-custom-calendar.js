@@ -29,7 +29,7 @@ function InitializeCalendar() {
                 eventDisplay: 'block',
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: routeURL + '/api/Appointment/GetCalendarData?technicianId=' + $("#technicianId").val(),
+                        url: routeURL + '/api/Appointment/GetCalendarData?technicianId=' + $("#techniccianId").val(),
                         type: 'GET',
                         dataType: 'JSON',
                         success: function (response) {
@@ -238,3 +238,4 @@ function onConfirm() {
         }
     });
 }
+

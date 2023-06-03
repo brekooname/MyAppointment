@@ -17,7 +17,6 @@ namespace MyAppointment.Models.ViewModels
         public string CustomerId { get; set; }
         public bool IsTechnicianApproved { get; set; }
         public string AdminId { get; set; }
-
         public string TechnicianName { get; set; }
         public string CustomerName { get; set; }
         public string AdminName { get; set; }
