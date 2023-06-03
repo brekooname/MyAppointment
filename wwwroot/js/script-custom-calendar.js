@@ -77,8 +77,8 @@ function onShowModal(obj, isEventDetail) {
         $("#description").val(obj.description);
         $("#appointmentDate").val(obj.startDate);
         $("#duration").val(obj.duration);
-        $("#technicianId").val(obj.doctorId);
-        $("#customerId").val(obj.patientId);
+        $("#technicianId").val(obj.technicianId);
+        $("#customerId").val(obj.customerId);
         $("#id").val(obj.id);
         $("#lblCustomerName").html(obj.customerName);
         $("#lblTechnicianName").html(obj.technicianName);

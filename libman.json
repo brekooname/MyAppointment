@@ -8,10 +8,7 @@
     },
     {
       "library": "notify@0.4.2",
-      "destination": "wwwroot/notify/",
-      "files": [
-        "notify.min.js"
-      ]
+      "destination": "wwwroot/notify/"
     }
   ]
 }
