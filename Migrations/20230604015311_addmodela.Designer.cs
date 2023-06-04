@@ -9,8 +9,8 @@ using MyAppointment.Data;
 namespace MyAppointment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230603011053_addParts")]
-    partial class addParts
+    [Migration("20230604015311_addmodela")]
+    partial class addmodela
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -251,7 +251,7 @@ namespace MyAppointment.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("MyAppointment.Models.Part", b =>
+            modelBuilder.Entity("MyAppointment.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -272,12 +272,15 @@ namespace MyAppointment.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("StatusOfWorkOrder")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

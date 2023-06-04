@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        IPartRepository Part { get; }
+        ICustomerRepository Customer { get; }
         void Save();
     }
 }

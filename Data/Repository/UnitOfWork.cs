@@ -6,12 +6,12 @@ namespace MyAppointment.Data.Repository
     {
         private readonly ApplicationDbContext _db;
 
-        public IPartRepository Part { get; private set; }
+        public ICustomerRepository Customer { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            Part = new PartRepository(_db);
+            Customer = new CustomerRepository(_db);
         }
 
 

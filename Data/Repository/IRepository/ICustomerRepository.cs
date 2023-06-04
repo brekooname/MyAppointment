@@ -2,8 +2,8 @@
 
 namespace MyAppointment.Data.Repository.IRepository
 {
-    public interface IPartRepository : IRepository<Part>
+    public interface ICustomerRepository : IRepository<Customer>
     {
-        void Update(Part obj);
+        void Update(Customer obj);
     }
 }

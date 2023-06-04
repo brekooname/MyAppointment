@@ -3,18 +3,18 @@ using MyAppointment.Models;
 
 namespace MyAppointment.Data.Repository
 {
-    public class PartRepository : Repository<Part>, IPartRepository
+    public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public PartRepository(ApplicationDbContext db):base(db)
+        public CustomerRepository(ApplicationDbContext db):base(db)
         {
             _db = db;
         }
 
-        public void Update(Part obj)
+        public void Update(Customer obj)
         {
-            _db.Parts.Update(obj);
+            _db.Customers.Update(obj);
         }
     }
 }

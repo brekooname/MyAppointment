@@ -14,7 +14,7 @@ namespace MyAppointment.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
-        public DbSet<Part> Parts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
 
     }

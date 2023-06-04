@@ -7,11 +7,11 @@ using System.Data;
 
 namespace MyAppointment.Controllers
 {
-    public class PartsController : Controller
+    public class CustomersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public PartsController(IUnitOfWork unitOfWork)
+        public CustomersController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -34,13 +34,13 @@ namespace MyAppointment.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Part vm)
+        public ActionResult Create(Customer vm)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Part.Add(vm);
+                _unitOfWork.Customer.Add(vm);
                 _unitOfWork.Save();
-                TempData["success"] = "Part created successfully";
+                TempData["success"] = "Customer created successfully";
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -56,24 +56,24 @@ namespace MyAppointment.Controllers
                 return NotFound();
             }
 
-            var partFromDb = _unitOfWork.Part.Get(m => m.Id == id);
+            var customerFromDb = _unitOfWork.Customer.Get(m => m.Id == id);
 
-            if (partFromDb == null)
+            if (customerFromDb == null)
             {
                 return NotFound();
             }
-            return View(partFromDb);
+            return View(customerFromDb);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Part vm)
+        public IActionResult Edit(Customer vm)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Part.Update(vm);
+                _unitOfWork.Customer.Update(vm);
                 _unitOfWork.Save();
-                TempData["success"] = "Part updated successfully";
+                TempData["success"] = "Customer updated successfully";
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -86,13 +86,13 @@ namespace MyAppointment.Controllers
             {
                 return NotFound();
             }
-            var partFromDb = _unitOfWork.Part
+            var customerFromDb = _unitOfWork.Customer
                 .Get(m => m.Id == id);
-            if (partFromDb == null)
+            if (customerFromDb == null)
             {
                 return NotFound();
             }
-            return View(partFromDb);
+            return View(customerFromDb);
         }
 
         //POST
@@ -100,14 +100,14 @@ namespace MyAppointment.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var partFromDb = _unitOfWork.Part.Get(u => u.Id == id);
-            if (partFromDb == null)
+            var customerFromDb = _unitOfWork.Customer.Get(u => u.Id == id);
+            if (customerFromDb == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Part.Remove(partFromDb);
+            _unitOfWork.Customer.Remove(customerFromDb);
             _unitOfWork.Save();
-            TempData["success"] = "Part Deleted successfully";
+            TempData["success"] = "Customer Deleted successfully";
             return RedirectToAction("Index");
 
         }
@@ -116,23 +116,23 @@ namespace MyAppointment.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var objFromDb = _unitOfWork.Part.GetAll();
+            var objFromDb = _unitOfWork.Customer.GetAll();
             return Json(new { data = objFromDb });
         }
 
         [HttpDelete]
         public IActionResult DeletePart(int? id)
         {
-            var objFromDb = _unitOfWork.Part.Get(c => c.Id == id);
+            var objFromDb = _unitOfWork.Customer.Get(c => c.Id == id);
 
             if (objFromDb == null)
             {
-                TempData["Error"] = "Error Deleting Part";
+                TempData["Error"] = "Error Deleting Customer";
                 return Json(new { success = false, message = "Error while Deleting" });
             }
-            _unitOfWork.Part.Remove(objFromDb);
+            _unitOfWork.Customer.Remove(objFromDb);
             _unitOfWork.Save();
-            TempData["Success"] = "Part successfully deleted";
+            TempData["Success"] = "Customer successfully deleted";
             return Json(new { success = true, message = "Delete successfully" });
         }
 

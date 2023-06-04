@@ -32,8 +32,8 @@
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">@Html.ActionLink("Shop-All", "Index", "Product", new { area = "UI" }, new { @class = "nav-link" })</li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Parts" asp-action="Index">
-                                Parts
+                            <a class="nav-link text-white" asp-controller="Customers" asp-action="Index">
+                                Customers
                             </a>
                         </li>
                         @if (User.IsInRole(Helper.Admin) || User.IsInRole(Helper.Technician))
@@ -43,11 +43,10 @@
                                     Admin Panel
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="nav-link text-dark" asp-controller="Parts" asp-action="Index">Parts-Lists</a>
-                                    <a class="nav-link text-dark" asp-controller="Parts" asp-action="Create">Create-Lists</a>
+                                    <a class="nav-link text-dark" asp-controller="Customers" asp-action="Index">Customer-Lists</a>
+                                    <a class="nav-link text-dark" asp-controller="Customers" asp-action="Create">Create-Lists</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="nav-link text-dark" asp-controller="Parts" asp-action="Edit">Edit-Lists</a>
-                                    <a class="nav-link text-dark" asp-controller="Parts" asp-action="Delete">Delete-Lists</a>
+                                    <a class="nav-link text-dark" asp-controller="Appointment" asp-action="Index">Appointment</a>
                                 </div>
                             </li>
                         }

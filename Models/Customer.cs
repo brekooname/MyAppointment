@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyAppointment.Models
 {
-    public class Part
+    public class Customer
     {
         public int Id { get; set; }
         [Required]
@@ -14,7 +15,7 @@ namespace MyAppointment.Models
         [Required]
         [StringLength(255)]
         public string PartDescription { get; set; }
-
+        public DateTime ReturnDate { get; set; }
         public bool StatusOfWorkOrder { get; set; }
     }
 }

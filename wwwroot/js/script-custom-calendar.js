@@ -10,8 +10,6 @@ $(document).ready(function () {
 var calendar;
 function InitializeCalendar() {
     try {
-
-
         var calendarEl = document.getElementById('calendar');
         if (calendarEl != null) {
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -29,7 +27,7 @@ function InitializeCalendar() {
                 eventDisplay: 'block',
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: routeURL + '/api/Appointment/GetCalendarData?technicianId=' + $("#techniccianId").val(),
+                        url: routeURL + '/api/Appointment/GetCalendarData?technicianId=' + $("#technicianId").val(),
                         type: 'GET',
                         dataType: 'JSON',
                         success: function (response) {

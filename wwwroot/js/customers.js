@@ -5,14 +5,22 @@ $(document).ready(function () {
 });
 
 function loadDataTable() {
-    dataTable = $("#parts").DataTable({
+    dataTable = $("#customers").DataTable({
         "ajax": {
-            url: "/Parts/GetAll",
+            url: "/Customers/GetAll",
         },
         "columns": [
-            { "data": "customerName", "width": "30%" },
+            { "data": "customerName", "width": "20%" },
             { "data": "partNumber", "width": "20%" },
             { "data": "partDescription", "width": "20%" },
+            {
+                "data": "returnDate", "width": "20%",
+                "render": function (data) {
+                    var date = new Date(data);
+                    var month = date.getMonth() + 1;
+                    return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                }
+            },
             {
                 "data": "statusOfWorkOrder",
                 "width": "20%",
@@ -28,10 +36,10 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data, type, row) {
                     return `<div class="text-center">
-                            <a href="/Parts/Edit/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                            <a href="/Customers/Edit/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i> &nbsp;
                             </a>
-                            <a href="/Parts/Delete/${data}" class="btn btn-danger text-white" style="cursor:pointer">
+                            <a href="/Customers/Delete/${data}" class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash-alt"></i> &nbsp;
                             </a>
                             </div>`;
