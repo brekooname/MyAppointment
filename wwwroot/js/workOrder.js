@@ -14,6 +14,9 @@ function loadDataTable() {
             { "data": "partNumber", "width": "15%" },
             { "data": "partDescription", "width": "15%" },
             {
+              "data":"workType.name","width":"15%"
+            },
+            {
                 "data": "returnDate", "width": "15%",
                 "render": function (data) {
                     var date = new Date(data);
