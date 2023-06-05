@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyAppointment.Models
 {
-    public class Customer
+    public class WorkOrder
     {
         public int Id { get; set; }
         [Required]
@@ -17,5 +19,12 @@ namespace MyAppointment.Models
         public string PartDescription { get; set; }
         public DateTime ReturnDate { get; set; }
         public bool StatusOfWorkOrder { get; set; }
+
+        [Required]
+        [Display(Name = "Work Type")]
+        public int WorkTypeId { get; set; }
+        [ForeignKey("WorkTypeId")]
+        [ValidateNever]
+        public WorkType WorkType { get; set; }
     }
 }

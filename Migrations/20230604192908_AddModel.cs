@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAppointment.Migrations
 {
-    public partial class addmodela : Migration
+    public partial class AddModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,20 +69,16 @@ namespace MyAppointment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "WorkTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CustomerName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    PartNumber = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    PartDescription = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    StatusOfWorkOrder = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK_WorkTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,6 +187,30 @@ namespace MyAppointment.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkOrders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    PartNumber = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    PartDescription = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    ReturnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StatusOfWorkOrder = table.Column<bool>(type: "INTEGER", nullable: false),
+                    WorkTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkOrders_WorkTypes_WorkTypeId",
+                        column: x => x.WorkTypeId,
+                        principalTable: "WorkTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -227,6 +247,11 @@ namespace MyAppointment.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_WorkTypeId",
+                table: "WorkOrders",
+                column: "WorkTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -250,13 +275,16 @@ namespace MyAppointment.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "WorkOrders");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "WorkTypes");
         }
     }
 }

@@ -1,0 +1,72 @@
+﻿@model MyAppointment.Models.ViewModels.WorkOrderViewModel
+
+
+	<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+		<input asp-for="WorkOrder.Id" hidden />
+		<div class="row">
+			<div class="col-12">
+				<div class="border p-3 mt-4 row">
+				<div class="col-12 pb-2">
+					<h2 class="text-primary">@(Model.WorkOrder.Id!=0?"Update": "Create")  WorkOrder</h2>
+					<hr />
+				</div>
+				<div class="col-12">
+					@*<div asp-validation-summary="All"></div>*@
+					<div class="form-group">
+						<label asp-for="WorkOrder.CustomerName"></label>
+						<input asp-for="WorkOrder.CustomerName" class="form-control" />
+						<span asp-validation-for="WorkOrder.CustomerName" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="WorkOrder.PartNumber"></label>
+						<input asp-for="WorkOrder.PartNumber" class="form-control" />
+						<span asp-validation-for="WorkOrder.PartNumber" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="WorkOrder.PartDescription"></label>
+						<textarea asp-for="WorkOrder.PartDescription" rows="3" class="form-control"></textarea>
+						<span asp-validation-for="WorkOrder.PartDescription" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="WorkOrder.ReturnDate"></label>
+						<input asp-for="WorkOrder.ReturnDate" class="form-control" />
+						<span asp-validation-for="WorkOrder.ReturnDate" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="WorkOrder.WorkTypeId"></label>
+						<select asp-for="WorkOrder.WorkTypeId" asp-items="@Model.WorkTypeList" class="custom-select">
+							<option disabled selected>--Select WorkType--</option>
+						</select>
+						<span asp-validation-for="WorkOrder.WorkTypeId" class="text-danger"></span>
+					</div>
+					<div lass="form-check">
+						<input asp-for="WorkOrder.StatusOfWorkOrder" class="form-check-input" />
+						<label class="form-check-label" asp-for="WorkOrder.StatusOfWorkOrder"></label>
+						<span asp-validation-for="WorkOrder.StatusOfWorkOrder" class="text-danger"></span>
+					</div>
+					
+					<div class="col-12">
+						@if (Model.WorkOrder.Id != 0)
+						{
+							<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+						}
+						else
+						{
+							<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+						}
+						<a asp-controller="WorkOrder" asp-action="Index" class="btn btn-secondary" style="width:150px">
+							Back to List
+						</a>
+					</div>
+			   </div>
+		  </div>
+	</div>	
+	</div>
+	</form>
+
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+}

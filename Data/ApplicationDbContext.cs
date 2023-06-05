@@ -14,8 +14,8 @@ namespace MyAppointment.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
 
-
+        public DbSet<WorkType> WorkTypes { get; set; }
     }
 }

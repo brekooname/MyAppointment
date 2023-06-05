@@ -7,14 +7,14 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $("#customers").DataTable({
         "ajax": {
-            url: "/Customers/GetAll",
+            url: "/WorkOrder/GetAll",
         },
         "columns": [
             { "data": "customerName", "width": "20%" },
-            { "data": "partNumber", "width": "20%" },
-            { "data": "partDescription", "width": "20%" },
+            { "data": "partNumber", "width": "15%" },
+            { "data": "partDescription", "width": "15%" },
             {
-                "data": "returnDate", "width": "20%",
+                "data": "returnDate", "width": "15%",
                 "render": function (data) {
                     var date = new Date(data);
                     var month = date.getMonth() + 1;
@@ -23,7 +23,7 @@ function loadDataTable() {
             },
             {
                 "data": "statusOfWorkOrder",
-                "width": "20%",
+                "width": "15%",
                 "render": function (data, type, row) {
                     if (row.statusOfWorkOrder == 0) {
                         return 'un completed'
@@ -35,11 +35,11 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data, type, row) {
-                    return `<div class="text-center">
-                            <a href="/Customers/Edit/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                    return `<div class="w-75 btn-group">
+                            <a href="/WorkOrder/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i> &nbsp;
                             </a>
-                            <a href="/Customers/Delete/${data}" class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onClick=Delete('/WorkOrder/Delete/${data}') class="btn btn-primary mx-2" style="cursor:pointer">
                                 <i class="fas fa-trash-alt"></i> &nbsp;
                             </a>
                             </div>`;
@@ -49,26 +49,29 @@ function loadDataTable() {
     });
 }
 function Delete(url) {
-    swal({
-        title: "Are you sure you want to Delete?",
-        text: "You will not be able to restore the data!",
-        icon: "warning",
-        buttons: true,
-        dangeMode: true
-    }).then((willDelete) => {
-        if (willDelete) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
             $.ajax({
-                type: "DELETE",
                 url: url,
+                type: 'DELETE',
                 success: function (data) {
                     if (data.success) {
-                        toastr.success(data.message);
                         dataTable.ajax.reload();
-                    } else {
+                        toastr.success(data.message);
+                    }
+                    else {
                         toastr.error(data.message);
                     }
                 }
             })
         }
-    });
+    })
 }

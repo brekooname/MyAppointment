@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyAppointment.Models.Customer>
+﻿@model IEnumerable<MyAppointment.Models.WorkOrder>
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Customer Status</h2>
+                <h2>Work Order/Customer Info</h2>
             </div>
         </div>
         <div class="row">
@@ -37,12 +37,12 @@
         $(document).ready(function () {
             var table = $("#customers").DataTable({
                 ajax: {
-                    url: "/Customers/GetAll"
+                    url: "/WorkOrder/GetAll"
                 },
                 columns: [
-                    { data: "customerName" },
-                    { data: "partNumber" },
-                    { data: "partDescription" },
+                    { data: "customerName", "width": "20%"},
+                    { data: "partNumber", "width": "20%"},
+                    { data: "partDescription", "width": "20%" },
                     {
                         "data": "returnDate", "width": "20%",
                         "render": function (data) {

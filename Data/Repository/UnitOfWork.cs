@@ -4,16 +4,18 @@ namespace MyAppointment.Data.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _db;
+        private ApplicationDbContext _db;
 
-        public ICustomerRepository Customer { get; private set; }
+        public IWorkOrderRepository WorkOrder { get; private set; }
+
+        public IWorkTypeRepository WorkType { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            Customer = new CustomerRepository(_db);
+            WorkOrder = new WorkOrderRepository(_db);
+            WorkType = new WorkTypeRepository(_db);
         }
-
 
         public void Save()
         {

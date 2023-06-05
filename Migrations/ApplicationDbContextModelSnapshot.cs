@@ -249,7 +249,7 @@ namespace MyAppointment.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("MyAppointment.Models.Customer", b =>
+            modelBuilder.Entity("MyAppointment.Models.WorkOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -276,9 +276,28 @@ namespace MyAppointment.Migrations
                     b.Property<bool>("StatusOfWorkOrder")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("WorkTypeId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.HasIndex("WorkTypeId");
+
+                    b.ToTable("WorkOrders");
+                });
+
+            modelBuilder.Entity("MyAppointment.Models.WorkType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -330,6 +349,17 @@ namespace MyAppointment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyAppointment.Models.WorkOrder", b =>
+                {
+                    b.HasOne("MyAppointment.Models.WorkType", "WorkType")
+                        .WithMany()
+                        .HasForeignKey("WorkTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkType");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,8 @@
 {
     public interface IUnitOfWork
     {
-        ICustomerRepository Customer { get; }
+        IWorkTypeRepository WorkType { get; }
+        IWorkOrderRepository WorkOrder { get; }
         void Save();
     }
 }

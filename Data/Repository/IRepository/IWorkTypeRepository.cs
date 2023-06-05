@@ -2,8 +2,8 @@
 
 namespace MyAppointment.Data.Repository.IRepository
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface IWorkTypeRepository : IRepository<WorkType>
     {
-        void Update(Customer obj);
+        void Update(WorkType obj);
     }
 }
