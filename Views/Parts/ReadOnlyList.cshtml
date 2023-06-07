@@ -1,0 +1,62 @@
+﻿﻿
+@model IEnumerable<MyAppointment.Models.Part>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Truck Inventory</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="parts" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Part Quantity</th>
+                                <th>Part Name</th>
+                                <th>Part Number</th>
+                                <th>Part Description</th>
+                                <th>Part Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <a class="btn btn-danger" asp-action="Login" asp-controller="Account">Sign In</a> to assets Part Lists!!!
+    </div>
+}
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $("#parts").DataTable({
+                ajax: {
+                    url: "/api/parts"
+                columns: [
+                    { data: "numberInStock" },
+                    { data: "partName" },
+                    { data: "partNumber" },
+                    { data: "partDescription" },
+                    { data: "partPrice" }
+                ]
+            });
+        });
+    </script>
+}

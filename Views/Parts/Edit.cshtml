@@ -1,0 +1,65 @@
+﻿@model Part
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex" id="wrapper">
+
+    <partial name="_AdminNavbar" />
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="container-fluid">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div class="container-fluid">
+            <div class="table-responsive">
+
+                <h2>Edit</h2>
+
+                <h4>Customers</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Edit">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group">
+                                <label asp-for="PartName" class="control-label"></label>
+                                <input asp-for="PartName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PartNumber" class="control-label"></label>
+                                <input asp-for="PartNumber" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PartDescription" class="control-label"></label>
+                                <input asp-for="PartDescription" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="NumberInStock" class="control-label"></label>
+                                <input asp-for="NumberInStock" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PartPrice" class="control-label"></label>
+                                <input asp-for="PartPrice" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Update" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MyAppointment.Models.Techline>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Tech-Line-Support-For-@DateTime.Now.Year</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table id="techlines" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Brand Name</th>
+                        <th>Account Number</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $.get("/api/techlines", techlineslist);
+        });
+        function techlineslist(data) {
+            var techlines = document.getElementById("techlines");
+            for (var i = 0; i < data.length; i++) {
+                var techline = data[i];
+                techlines.innerHTML += `
+                                     <tr>
+                                          <td>${techline.brandName}</td>
+                                          <td>${techline.accountNumber}</td>
+                                          <td>${techline.phoneNumber}</td>
+                                      </tr>
+                               `
+            }
+        }
+    </script>
+}

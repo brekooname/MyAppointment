@@ -1,0 +1,125 @@
+﻿@model MyAppointment.Models.ViewModels.PartViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex" id="wrapper">
+
+    <partial name="_AdminNavbar" />
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h2>New Part</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form asp-controller="Parts" asp-action="Create" method="post" id="partform" enctype="multipart/form-data">
+                        <input asp-for="Id" id="edit-id" type="hidden" />
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" asp-for="PartName" />
+                        </div>
+                        <div class="form-group">
+                            <label>Part Number</label>
+                            <input class="form-control" asp-for="PartNumber">
+                        </div>
+                        <div class="form-group">
+                            <label>Part Description</label>
+                            <input class="form-control" asp-for="PartDescription" />
+                        </div>
+                        <div class="form-group">
+                            <label>Part In stock</label>
+                            <input class="form-control" asp-for="NumberInStock" />
+                        </div>
+                        <div class="form-group">
+                            <label>Part Price</label>
+                            <input class="form-control" asp-for="PartPrice" />
+                        </div>
+                        @Html.AntiForgeryToken()
+                        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+@section scripts {
+    <script>
+        const uri = '/api/Parts';
+        let submitForm = document.querySelector("#partform");
+        submitForm.addEventListener("submit", submitData);
+
+        function submitData(e) {
+            e.preventDefault();
+            //Get Values
+
+            let partName, partNumber, partDescription, numberInStock, partPrice;
+            partName = document.getElementById("PartName").value;
+            partNumber = document.getElementById("PartNumber").value;
+            partDescription = document.getElementById("PartDescription").value;
+            numberInStock = document.getElementById("NumberInStock").value;
+            partPrice = document.getElementById("PartPrice").value;
+
+            if (partName == "") {
+                alert("Please enter part name !!!");
+                return false;
+            };
+            if (partNumber == "") {
+                alert("Please enter part number !!!");
+                return false;
+            };
+            if (partDescription == "") {
+                alert("Please enter part description !!!");
+                return false;
+            };
+            if (partDescription == "") {
+                alert("Please enter part description !!!");
+                return false;
+            };
+            if (numberInStock == "") {
+                alert("Please enter number in stock !!!");
+                return false;
+            };
+            if (partPrice == "") {
+                alert("Please enter part price!!!");
+                return false;
+            };
+            fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ partName: partName, partNumber: partNumber, partDescription: partDescription, numberInStock: numberInStock, partPrice: partPrice })
+            }).then((res) => res.json())
+                .then((data) => {
+                    submitForm.reset();
+                    alert("Your Part is been Added it ");
+                })
+                .catch((error) => {
+                    console.error('Error', error);
+                })
+        }
+    </script>
+}
+
+
+

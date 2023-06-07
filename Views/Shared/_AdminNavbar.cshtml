@@ -1,0 +1,48 @@
+﻿<!-- Sidebar -->
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading"><a class="list-group-item-action" href="/Panel/FrontPage"><i class="fa fa-pie-chart fa-2x"></i>Admin Dashboard</a></div>
+    <div class="clearfix"></div>
+    <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-light" asp-controller="Panel" asp-action="Index"><i class="fa fa-book"></i>MyPosts</a>
+        <a class="list-group-item list-group-item-action bg-light" asp-controller="Panel" asp-action="Edit"><i class="fa fa-pencil-square-o fa-2x"></i>Add New Post</a>
+        <a class="list-group-item list-group-item-action bg-light" asp-controller="MyMessages" asp-action="Index"><i class="fa fa-envelope-o fa-2x"></i>My Messages</a>
+        <a data-toggle="collapse" href="#collapseExample" aria-expanded="true" class="list-group-item list-group-item-action bg-light"><i class=" fa fa-plus-circle fa-2x"></i>Pages</a>
+        <div class="clearfix"></div>
+        <div class="collapse in" id="collapseExample">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Home" asp-action="HomeEdit">Home-Page</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Home" asp-action="Edit">Edit Home-Page</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Home" asp-action="Index">About-Page</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Trucks" asp-action="Edit">Add-truck</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Parts" asp-action="New">Add-Part</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Parts" asp-action="Index">Part List</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Warranty" asp-action="Index">Warranty List</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Warranty" asp-action="Create">Add Warranty To List</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="list-group-item list-group-item-action bg-light link-collapse" asp-controller="Customers" asp-action="Index">Customers List</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-bookmark-o fa-2x"></i>Overview</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-calendar fa-2x"></i>Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-user-circle fa-2x"></i>Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-play fa-2x"></i>Status</a>
+    </div>
+</div>

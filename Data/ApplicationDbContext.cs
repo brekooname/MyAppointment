@@ -16,6 +16,10 @@ namespace MyAppointment.Data
 
         public DbSet<WorkOrder> WorkOrders { get; set; }
 
+        public DbSet<Part> Parts { get; set; }
+
         public DbSet<WorkType> WorkTypes { get; set; }
+
+        public DbSet<Techline> Techlines { get; set; }
     }
 }
