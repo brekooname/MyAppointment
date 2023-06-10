@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyAppointment.Data;
+using MyAppointment.Data.Repository.IRepository;
 using MyAppointment.Models;
 using MyAppointment.Models.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +12,11 @@ namespace MyAppointment.Controllers
 {
     public class PartsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PartsController(ApplicationDbContext context)
+        public PartsController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -24,13 +26,13 @@ namespace MyAppointment.Controllers
             return View("ReadOnlyList");
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var part = await _context.Parts.FirstOrDefaultAsync(p => p.Id == id);
+            var part = _unitOfWork.Part.Get(u =>u.Id == id);
             if (part == null)
             {
                 return NotFound();
@@ -39,104 +41,102 @@ namespace MyAppointment.Controllers
         
         }
 
-        public ActionResult New()
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Part part)
+        public ActionResult Create(Part obj)
         {
             if (ModelState.IsValid)
             {
-                var viewModel = new PartViewModel
-                {
-                    Id = part.Id,
-                    PartName = part.PartName,
-                    PartNumber = part.PartNumber,
-                    NumberInStock = part.NumberInStock,
-                    PartPrice = part.PartPrice,
-                };
-                return View("New", viewModel);
+                _unitOfWork.Part.Add(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Part created successfully";
+                return RedirectToAction("Index");
             }
-
-            if (part.Id == 0)
-                _context.Parts.Add(part);
-            else
-            {
-                var partInDb = _context.Parts.FirstOrDefault(p => p.Id == part.Id);
-                partInDb.Id = part.Id;
-                partInDb.PartName = part.PartName;
-                partInDb.PartNumber = part.PartNumber;
-                partInDb.PartDescription = part.PartDescription;
-                partInDb.NumberInStock = part.NumberInStock;
-                partInDb.PartPrice = part.PartPrice;
-            }
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Parts");
+            return View(obj);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var part = await _context.Parts.FindAsync(id);
+            var partFromDb = _unitOfWork.Part.Get(u =>u.Id== id);
 
-            if (part == null)
+            if (partFromDb == null)
             {
                 return NotFound();
             }
-            return View(part);
+            return View(partFromDb);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PartName,PartNumber,PartDescription, NumberInStock,PartPrice")]Part part)
+        public IActionResult Edit(Part obj)
         {
-            if (id != part.Id)
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Part.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Part updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
+      /*  public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
+
+            Part? partFromDb = _unitOfWork.Part.Get(u => u.Id == id);
+            if (partFromDb == null)
             {
-                try
-                {
-                    _context.Update(part);
-                    await _context.SaveChangesAsync();
-                }
-                catch 
-                {
-                    if (!PartExists(part.Id))
-                    {
-                        return NotFound();
-                    }
-                    else 
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            return View(part);
-
+            return View(partFromDb);
         }
 
-        private bool PartExists(int id)
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
         {
-            return _context.Parts.Any(e => e.Id == id);
+            Part? obj = _unitOfWork.Part.Get(u => u.Id == id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.Part.Remove(obj);
+            _unitOfWork.Save();
+            TempData["success"] = "Part deleted successfully";
+            return RedirectToAction("Index");
+        }*/
+
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Part> objPartList = _unitOfWork.Part.GetAll().ToList();
+            return Json(new { data = objPartList });
         }
 
-
-
-
-
-
-
-
-
-
-
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var partToBeDeleted = _unitOfWork.Part.Get(u => u.Id == id);
+            if (partToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            _unitOfWork.Part.Remove(partToBeDeleted);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Delete Successful" });
+        }
+        #endregion
     }
 }
