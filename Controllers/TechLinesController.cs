@@ -17,8 +17,9 @@ namespace MyAppointment.Controllers
         }
         public IActionResult Index()
         {
-            List<Techline> objTechlineList = _unitOfWork.Techline.GetAll().ToList();
-            return View(objTechlineList);
+            if (User.IsInRole("Admin"))
+                return View("Index");
+            return View("ReadOnlyList");
         }
 
         public IActionResult Create()

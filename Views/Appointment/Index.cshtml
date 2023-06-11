@@ -2,7 +2,6 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <div class="row">
-
     @if (TempData.ContainsKey("newAdminSignUp"))
     {
         <div class=container>
@@ -12,7 +11,6 @@
             </div>
         </div>
     }
-
     <div class="container">
         @if (User.IsInRole(MyAppointment.Utility.Helper.Admin))
         {
@@ -33,9 +31,7 @@
         <div id="calendar"></div>
     </div>
 </div>
-
 <partial name="_AddEditAppointment" />
-
 
 <div class="text-right pt-2">
     <p>@HttpContextAccessor.HttpContext.Session.GetString("ssuserName")'s account is logged in</p>
