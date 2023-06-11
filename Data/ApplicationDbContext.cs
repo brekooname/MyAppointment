@@ -21,5 +21,7 @@ namespace MyAppointment.Data
         public DbSet<WorkType> WorkTypes { get; set; }
 
         public DbSet<Techline> Techlines { get; set; }
+
+        public DbSet<Warranty> Warranties { get; set; }
     }
 }

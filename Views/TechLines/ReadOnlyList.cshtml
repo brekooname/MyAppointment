@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="table-responsive">
-                <table id="techlines" class="table table-bordered table-hover">
+                <table id="warranty" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Brand Name</th>
@@ -42,14 +42,14 @@ else
 @section scripts {
     <script>
         $(document).ready(function () {
-            var table = $("#techlines").DataTable({
+            var table = $("#warranty").DataTable({
                 ajax: {
-                    url: "/api/techlines",
-                    dataSrc: ""
+                    url: "/warranty/getall"
+                  
                 },
                 columns: [
-                    { data: "brandName"},
-                    { data: "accountNumber" },
+                    { data: "companyName"},
+                    { data: "Details" },
                     { data: "phoneNumber" }
 
                 ]

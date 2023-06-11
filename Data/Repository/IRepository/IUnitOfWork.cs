@@ -6,6 +6,7 @@
         IWorkTypeRepository WorkType { get; }
         IWorkOrderRepository WorkOrder { get; }
         ITechLineRepository Techline { get; }
+        IWarrantyRepository Warranty { get; }
         void Save();
     }
 }
